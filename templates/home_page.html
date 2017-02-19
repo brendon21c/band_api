@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title> Band Reasercher </title>
+
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-camo.css"> <!-- Extra color options -->
+
+
+</head>
+
+<body>
+
+  <div>
+
+    <h2 class="banner w3-panel w3-camo-sandstone"> This web app allows you to track and investigate bands you like. </h2>
+
+  </div>
+
+  <div class="location form w3-container" style="width: 50%">
+
+    <form action="{{ request.path }}" method="post">
+
+      <p>
+      <input class = "w3-input" type="text" name="venue" placeholder="venue name"> <br>
+
+      State:<br>
+      <select name="state">
+        <option value="MN">MN</option>
+      <p>
+      <input type="submit" value="Submit" />
+
+    </form>
+  </div>
+
+  <div class="Google Maps window" >
+
+  <iframe src="https://www.google.com/maps/embed/v1/place?key={{ key }}&q={{ place }}+{{ state }}" allowfullscreen width="700" height="500"></iframe>
+
+  </div>
+
+</body>
+</html>
