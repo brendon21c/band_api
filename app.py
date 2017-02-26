@@ -5,6 +5,9 @@ import itertools
 from datetime import *
 
 google_key = 'AIzaSyAobnniB69jdRIJpi--eltsM1Z6tcPkqt4' # We will need to secure this later.
+TM_key = 'xqbpUW8lmN8nnoX3UHO7suHosVMf8oBF'
+
+
 
 
 app = Flask(__name__)
