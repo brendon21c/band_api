@@ -32,12 +32,7 @@ def home_page():
     url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey={}&keyword={}".format(TM_key, band)
     print(url)
     request_url = requests.get(url)
-    json_return = request_url.json()
-    json_1 = json.dumps(json_return)
-    working = json.loads(json_1)
-    json_value = working[0]
-    print(json_value['events'])
-
+    json_return = request_url.json() # TODO need to get specific information from here.
 
 
     if request.method == 'POST':
