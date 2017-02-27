@@ -8,6 +8,7 @@ import os
 from http.cookiejar import CookieJar
 import json
 from photo import Photo
+from app import *
 
 #can pass band name as arguement from web app textbox?
 class BandPhotoAPI:

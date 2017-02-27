@@ -7,14 +7,12 @@ import requests
 import sys
 import urllib.request
 from datetime import *
-from bandPhotoAPI import BandPhotoAPI
+from bandPhotoAPI import *
 from photo import Photo
-from tour_processing import *
+from data_processing import *
 
 google_key = 'AIzaSyAobnniB69jdRIJpi--eltsM1Z6tcPkqt4' # We will need to secure this later.
 TM_key = 'xqbpUW8lmN8nnoX3UHO7suHosVMf8oBF'
-
-
 
 
 app = Flask(__name__)
@@ -23,14 +21,20 @@ app = Flask(__name__)
 @app.route('/', methods = ['GET', 'POST'])
 def home_page():
 
-    #addPhotoToWebApp()
+    #photo_url = addPhotoToWebApp() # Getting a SSL cert fail on this.
 
-    get_band_tour_info(TM_key, 'norah jones')
-
+    #get_band_tour_info(TM_key, 'norah jones')
 
     if request.method == 'POST':
 
-        return render_template('home_page.html', key = google_key, place = request.form['venue'], state = request.form['state'])
+        band = request.form['artist']
+
+        URLS = ['https://app.ticketmaster.com/discovery/v2/events.json?apikey={}&keyword={}'.format(TM_key, band)
+            ]
+
+        return_list = concurrent_requests(URLS)
+
+        return render_template('home_page.html', key = google_key, place = return_list[1], state = request.form['state'])
 
 
     return render_template('home_page.html', key = google_key, place = "guthrie+theater", state = "MN", tour_key = TM_key, band_name = "lil wayne")
@@ -45,7 +49,13 @@ def addPhotoToWebApp():# change pearl jam to a variable for whichever band the u
 
 
     newBPAPI = BandPhotoAPI('Pearl Jam')
-    print (newBPAPI.photo.url)
+    url = newBPAPI.photo.url
+    print(url)
+
+    return url
+
+
+
 
 def get_band_tour_info(key, band):
 
