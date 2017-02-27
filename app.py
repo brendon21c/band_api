@@ -23,16 +23,9 @@ app = Flask(__name__)
 @app.route('/', methods = ['GET', 'POST'])
 def home_page():
 
-    #addPhotoToWebApp() TODO this will need to be tested, SSL fail.
+    #addPhotoToWebApp()
 
-    #get_band_schedule()
-
-    band = "lil wayne"
-
-    url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey={}&keyword={}".format(TM_key, band)
-    print(url)
-    request_url = requests.get(url)
-    json_return = request_url.json() # TODO need to get specific information from here.
+    get_band_tour_info(TM_key, 'norah jones')
 
 
     if request.method == 'POST':
@@ -56,9 +49,19 @@ def addPhotoToWebApp():# change pearl jam to a variable for whichever band the u
 
 def get_band_tour_info(key, band):
 
-    test_url = requests.get("https://app.ticketmaster.com/discovery/v2/events.json?apikey=%s&keyword=%s") (key,band)
+    url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey={}&keyword={}".format(key, band)
+    print(url)
+    request_url = requests.get(url)
+    json_return = request_url.json() # TODO need to get specific information from here.
 
-    print(test_url)
+    print(type(json_return))
+    artist = json_return["_embedded"]['events'] # Gets Artist
+    print(type(artist))
+    print(len(artist))
+    # venue = artist["_embedded"]['venues'] # Gets venue
+    # print(type(venue))
+    # print(len(venue))
+
 
 if __name__ == '__main__':
     app.run(debug = True)
