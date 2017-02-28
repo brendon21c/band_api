@@ -11,8 +11,8 @@ from bandPhotoAPI import *
 from photo import Photo
 from data_processing import *
 
-google_key = 'AIzaSyAobnniB69jdRIJpi--eltsM1Z6tcPkqt4' # We will need to secure this later.
-TM_key = 'xqbpUW8lmN8nnoX3UHO7suHosVMf8oBF'
+google_key = '' # We will need to secure this later.
+TM_key = ''
 url_test = ''
 
 app = Flask(__name__)
@@ -24,6 +24,7 @@ def home_page():
     #photo_url = addPhotoToWebApp() # Getting a SSL cert fail on this.
 
     #get_band_tour_info(TM_key, 'norah jones')
+
 
     if request.method == 'POST':
 
@@ -66,8 +67,22 @@ def addPhotoToWebApp():# change pearl jam to a variable for whichever band the u
 
 def setup():
 
-    url_test = addPhotoToWebApp()
+    #url_test = addPhotoToWebApp()
+
+    keyfile = open('keys.txt', 'r')
+
+    global google_key # needed to assign keys to variables
+    google_key = keyfile.readline().rstrip()
+    print(google_key)
+
+    global TM_key
+    TM_key = keyfile.readline().rstrip()
+    print(TM_key)
+
+    keyfile.close()
+
 
 
 if __name__ == '__main__':
+    setup()
     app.run(debug = True)

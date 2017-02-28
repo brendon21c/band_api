@@ -1,3 +1,4 @@
 __pyccache
 *.pyc
 .DS_Store
+keys.txt
