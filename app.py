@@ -29,16 +29,23 @@ def home_page():
 
         band = request.form['artist']
 
-        URLS = ['https://app.ticketmaster.com/discovery/v2/events.json?apikey={}&keyword={}'.format(TM_key, band)
+        URLS = ['https://app.ticketmaster.com/discovery/v2/events.json?apikey={}&keyword={}&stateCode=MN'.format(TM_key, band)
             ]
 
         return_list = concurrent_requests(URLS)
         print(return_list)
 
-        return render_template('home_page.html', key = google_key, place = return_list[1], state = request.form['state'])
+        if len(return_list) < 2:
+
+            return render_template('home_page.html', key = google_key, place = "guthrie+theater", state = "MN", artist_not_found = return_list[0])
+
+        else:
+
+            return render_template('home_page.html', key = google_key, place = return_list[1], state = "MN", ticket_site = return_list[0])
 
 
-    return render_template('home_page.html', key = google_key, place = "guthrie+theater", state = "MN", tour_key = TM_key, band_name = "lil wayne")
+    return render_template('home_page.html', key = google_key, place = "guthrie+theater", state = "MN")
+
 
 
 
@@ -60,22 +67,6 @@ def addPhotoToWebApp():# change pearl jam to a variable for whichever band the u
 def setup():
 
     url_test = addPhotoToWebApp()
-
-
-# def get_band_tour_info(key, band):
-#
-#     url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey={}&keyword={}".format(key, band)
-#     print(url)
-#     request_url = requests.get(url)
-#     json_return = request_url.json() # TODO need to get specific information from here.
-#
-#     print(type(json_return))
-#     artist = json_return["_embedded"]['events'] # Gets Artist
-#     print(type(artist))
-#     print(len(artist))
-#     # venue = artist["_embedded"]['venues'] # Gets venue
-#     # print(type(venue))
-#     # print(len(venue))
 
 
 if __name__ == '__main__':
