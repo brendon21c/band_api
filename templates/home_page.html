@@ -40,6 +40,8 @@
 
   <a href="{{ ticket_site }}"> Ticket Information</a>
 
+
+
   <h3> {{ artist_not_found }}</h3>
 
   <div class="Google Maps window w3-display-bottom-right w3-padding">
@@ -47,6 +49,12 @@
   <iframe src="https://www.google.com/maps/embed/v1/place?key={{ key }}&q={{ place }}+MN" allowfullscreen width="700" height="500"></iframe>
 
   </div>
+
+  <!-- Photos  Check syntax plz -->
+
+  {% for photo_url in photos %}
+    <img src="{{photo_url}}">
+  {% endfor %}
 
 </body>
 </html>
