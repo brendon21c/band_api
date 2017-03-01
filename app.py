@@ -11,9 +11,9 @@ from bandPhotoAPI import *
 from photo import Photo
 from data_processing import *
 
-google_key = ''
-TM_key = ''
-url_test = ''
+# google_key = ''
+# TM_key = ''
+# url_test = ''
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///band_api_db.sqlite3'
@@ -35,12 +35,9 @@ def home_page():
 
         band = request.form['artist']
 
-        add_band_to_database(band) # program will save every band searched until deleted by User.
+        add_band_to_database(band) # program will save every band searched until deleted by User.  # Get APIs working first
 
-        URLS = ['https://app.ticketmaster.com/discovery/v2/events.json?apikey={}&keyword={}&stateCode=MN'.format(TM_key, band)
-            ]
-
-        return_list = concurrent_requests(URLS)
+        dates, photos, lyrics = get_data.get_data_for_band(band)   # Use these in the template
 
         if len(return_list) < 2:
 
@@ -113,7 +110,7 @@ def add_band_to_database(band):
 def delete_artist_from_db(band):
 
     query = Bands.query.filter_by(band_name = band).delete()
-    
+
 
 def setup():
 

@@ -6,8 +6,9 @@ import sys
 import urllib.request
 import concurrent.futures
 
-''' This is meant to process url concurrency, possibly more to come.'''
+import logging as log
 
+''' This is meant to process url concurrency, possibly more to come.'''
 
 ''' The section on concurency I got from the documentation, I still don;t full understand it.'''
 # Retrieve a single page and report the URL and contents
@@ -67,10 +68,13 @@ def handle_tour_json(json_dict):
 
     except Exception as e:
 
-        print("problem", e)
+        log.error("problem", e)
 
         no_artist_found = "Sorry, that artist is not playing Minnesoata at this time."
+
+        ## return an empty list if no results found
+
         info_list.append(no_artist_found)
-        print(info_list)
+        log.info(info_list)
 
         return info_list
