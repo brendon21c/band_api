@@ -10,6 +10,7 @@ from datetime import *
 from bandPhotoAPI import *
 from photo import Photo
 from data_processing import *
+from keys import keys
 
 # google_key = ''
 # TM_key = ''
@@ -21,6 +22,8 @@ app.config['SECRET_KEY'] = "roadie"
 
 db = SQLAlchemy(app)
 from models import *
+
+google_key = keys['GOOGLE_KEY']
 
 
 @app.route('/', methods = ['GET', 'POST'])
@@ -112,25 +115,25 @@ def delete_artist_from_db(band):
     query = Bands.query.filter_by(band_name = band).delete()
 
 
-def setup():
-
-    #url_test = addPhotoToWebApp()
-
-    keyfile = open('keys.txt', 'r') # opens the keys file and assings the api keys.
-
-    global google_key # needed to assign keys to variables
-    google_key = keyfile.readline().rstrip()
-    print(google_key)
-
-    global TM_key
-    TM_key = keyfile.readline().rstrip()
-    print(TM_key)
-
-    keyfile.close()
+# def setup():
+#
+#     #url_test = addPhotoToWebApp()
+#
+#     keyfile = open('keys.txt', 'r') # opens the keys file and assings the api keys.
+#
+#     global google_key # needed to assign keys to variables
+#     google_key = keyfile.readline().rstrip()
+#     print(google_key)
+#
+#     global TM_key
+#     TM_key = keyfile.readline().rstrip()
+#     print(TM_key)
+#
+#     keyfile.close()
 
 
 
 if __name__ == '__main__':
-    setup()
+    #setup()
     db.create_all()
     app.run(debug = True)
