@@ -11,6 +11,7 @@ from bandPhotoAPI import *
 from photo import Photo
 from data_processing import *
 from keys import keys
+from get_data import get_data_for_band
 
 # google_key = ''
 # TM_key = ''
@@ -33,22 +34,23 @@ def home_page():
 
     #get_band_tour_info(TM_key, 'norah jones')
 
-
     if request.method == 'POST':
 
         band = request.form['artist']
 
         add_band_to_database(band) # program will save every band searched until deleted by User.  # Get APIs working first
 
-        dates, photos, lyrics = get_data.get_data_for_band(band)   # Use these in the template
+        dates, photos, lyrics = get_data_for_band(band)   # Use these in the template
 
-        if len(return_list) < 2:
+        if not dates:
 
-            return render_template('home_page.html', key = google_key, place = "guthrie+theater", state = "MN", artist_not_found = return_list[0])
+            not_found = "Sorry, that artist is not playing Minnesoata at this time."
+
+            return render_template('home_page.html', key = google_key, place = "guthrie+theater", state = "MN", artist_not_found = not_found)
 
         else:
 
-            return render_template('home_page.html', key = google_key, place = return_list[1], state = "MN", ticket_site = return_list[0])
+            return render_template('home_page.html', key = google_key, place = dates[1], state = "MN", ticket_site = dates[0])
 
 
     return render_template('home_page.html', key = google_key, place = "guthrie+theater", state = "MN")
