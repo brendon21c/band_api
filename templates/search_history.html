@@ -26,27 +26,31 @@
 
   </div>
 
-  <div class="location form w3-container" style="width: 50%">
+  <h2> Here you can see your search history save bands you like and delete those you don't </h2>
+
+  <div>
 
     <form action="{{ request.path }}" method="post">
 
-      <p>
-      <input class = "w3-input" type="text" name="artist" placeholder="band name"> <br>
+      <select name="save_band" multiple>
+
+        {% for band in band_list %}
+
+        <option value="{{ band.band_name }}">{{ band.band_name}}</option>
+
+        {% endfor %}
+      </select>
+      <input class= "w3-check" type="checkbox" name= "save_artist">
+      <label class="w3-validate"> Save Artist</label>
+      <input class= "w3-check" type="checkbox" name= "delete_artist">
+      <label class="w3-validate"> delete Artist</label><br>
       <p>
       <input type="submit" value="Submit" />
 
     </form>
-  </div>
-
-  <a href="{{ ticket_site }}"> Ticket Information</a>
-
-  <h3> {{ artist_not_found }}</h3>
-
-  <div class="Google Maps window w3-display-bottom-right w3-padding">
-
-  <iframe src="https://www.google.com/maps/embed/v1/place?key={{ key }}&q={{ place }}+MN" allowfullscreen width="700" height="500"></iframe>
 
   </div>
+
 
 </body>
 </html>

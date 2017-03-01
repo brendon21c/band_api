@@ -2,3 +2,4 @@ __pyccache
 *.pyc
 .DS_Store
 keys.txt
+band_api_db.sqlite3
