@@ -10,7 +10,7 @@ from datetime import *
 from bandPhotoAPI import *
 from photo import Photo
 from data_processing import *
-from keys import keys
+from keys import *
 from get_data import get_data_for_band
 
 # google_key = ''
@@ -136,6 +136,5 @@ def delete_artist_from_db(band):
 
 
 if __name__ == '__main__':
-    #setup()
     db.create_all()
     app.run(debug = True)

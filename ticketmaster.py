@@ -17,18 +17,19 @@ def get_dates_for_artist(artist):
 
     # process this somehow
 
-    data = process(tm_json)
+    data = TM_process(tm_json)
 
     return data
 
 
-def process(json_dict):
+def TM_process(TM_dict):
+
 
     info_list = []
 
     try:
 
-        artist = json_dict["_embedded"]['events'][0]
+        artist = TM_dict["_embedded"]['events'][0]
         print(artist['url']) # ticket infor url
         venue = artist["_embedded"]['venues'][0] # Gets venue
         print(venue['name'])
