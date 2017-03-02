@@ -50,7 +50,7 @@ def home_page():
 
         else:
 
-            return render_template('home_page.html', key = google_key, place = dates[1], state = "MN", ticket_site = dates[0])
+            return render_template('home_page.html', key = google_key, place = dates[1], state = "MN", ticket_site = dates[0], photos = photos)
 
 
     return render_template('home_page.html', key = google_key, place = "guthrie+theater", state = "MN")
