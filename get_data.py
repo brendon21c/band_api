@@ -15,6 +15,7 @@ def get_data_for_band(band):
 
     # todo get data from image source Return data in suitable format for template
     photos = get_photos_for_band(band)
+    print(photos)
 
     # todo get lyrics. Return data in suitable format for template
     lyrics = get_lyrics_for_band(band)

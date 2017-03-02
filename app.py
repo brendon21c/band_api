@@ -7,7 +7,6 @@ import requests
 import sys
 import urllib.request
 from datetime import *
-from bandPhotoAPI import *
 from photo import Photo
 from data_processing import *
 from keys import *
@@ -40,7 +39,7 @@ def home_page():
 
         add_band_to_database(band) # program will save every band searched until deleted by User.  # Get APIs working first
 
-        dates, photos, lyrics = get_data_for_band(band)   # Use these in the template
+        dates, photo, lyrics = get_data_for_band(band)   # Use these in the template
 
         if not dates:
 
@@ -50,7 +49,7 @@ def home_page():
 
         else:
 
-            return render_template('home_page.html', key = google_key, place = dates[1], state = "MN", ticket_site = dates[0], photos = photos)
+            return render_template('home_page.html', key = google_key, place = dates[1], state = "MN", ticket_site = dates[0], photo_url = photos)
 
 
     return render_template('home_page.html', key = google_key, place = "guthrie+theater", state = "MN")

@@ -14,13 +14,14 @@ def get_photos_for_band(band):
     flickerSearchURL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key={}&text={}&format=json&nojsoncallback=1'.format(key, bandSpacing)
     print (flickerSearchURL)
         #Search flickr for cat pictures
-    flickrResponse = urllib.request.urlopen(flickerSearchURL)
+    flickrResponse = requests.get(flickerSearchURL)
         #get json back
-    flickrResponseJSONString = flickrResponse.read().decode('UTF-8')
-    flickrResponseJson = json.loads(flickrResponseJSONString)
+    #flickrResponseJSONString = flickrResponse.read().decode('UTF-8')
+    flickrResponseJson = flickrResponse.json()
         #Get first json object ('photos') which contains another json object ('photo') which is an json array; each
         # element represents one photo. Take element 0
     firstResponsePhoto = flickrResponseJson['photos']['photo'][0]
+    print(firstResponsePhoto)
     secret = firstResponsePhoto['secret']
     id = firstResponsePhoto['id']
     server = firstResponsePhoto['server']
