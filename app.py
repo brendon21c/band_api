@@ -7,14 +7,10 @@ import requests
 import sys
 import urllib.request
 from datetime import *
-from photo import Photo
 from data_processing import *
 from keys import *
 from get_data import get_data_for_band
 
-# google_key = ''
-# TM_key = ''
-# url_test = ''
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///band_api_db.sqlite3'
@@ -43,7 +39,7 @@ def home_page():
 
         if not dates:
 
-            not_found = "Sorry, that artist is not playing Minnesoata at this time."
+            not_found = "Sorry, that artist is not playing Minnesota at this time."
 
             return render_template('home_page.html', key = google_key, place = "guthrie+theater", state = "MN", artist_not_found = not_found)
 
@@ -88,22 +84,6 @@ def search_history():
     return render_template('search_history.html', band_list = Bands.query.all())
 
 
-
-
-
-def addPhotoToWebApp():# change pearl jam to a variable for whichever band the user inputs in the webapp
-
-    '''I don't know how to add a photo to a web site using html newBPAPI.photo.url is a link to a photo,
-    i hope that is something you can display using html. If not there is code that is commented out in
-    bandPhotoAPI that can fetch the raw image from the url this code works but only after you quit the program'''
-
-
-    newBPAPI = BandPhotoAPI('Pearl Jam')
-    url = newBPAPI.photo.url
-    print(url)
-
-    return url
-
 def add_band_to_database(band):
 
     entry = Bands(band,False)
@@ -114,23 +94,6 @@ def add_band_to_database(band):
 def delete_artist_from_db(band):
 
     query = Bands.query.filter_by(band_name = band).delete()
-
-
-# def setup():
-#
-#     #url_test = addPhotoToWebApp()
-#
-#     keyfile = open('keys.txt', 'r') # opens the keys file and assings the api keys.
-#
-#     global google_key # needed to assign keys to variables
-#     google_key = keyfile.readline().rstrip()
-#     print(google_key)
-#
-#     global TM_key
-#     TM_key = keyfile.readline().rstrip()
-#     print(TM_key)
-#
-#     keyfile.close()
 
 
 

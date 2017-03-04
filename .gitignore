@@ -4,3 +4,5 @@ __pyccache
 keys.txt
 keys.py
 band_api_db.sqlite3
+bandenv
+lib
