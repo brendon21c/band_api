@@ -37,7 +37,7 @@ def home_page():
 
         dates, photo, lyrics = get_data_for_band(band)   # Use these in the template
 
-        if not dates:
+        if not dates or not photo:
 
             not_found = "Sorry, that artist is not playing Minnesota at this time."
 

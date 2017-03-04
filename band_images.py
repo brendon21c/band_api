@@ -20,16 +20,19 @@ def get_photos_for_band(band):
     flickrResponseJson = flickrResponse.json()
         #Get first json object ('photos') which contains another json object ('photo') which is an json array; each
         # element represents one photo. Take element 0
-    firstResponsePhoto = flickrResponseJson['photos']['photo'][0]
-    print(firstResponsePhoto)
-    secret = firstResponsePhoto['secret']
-    id = firstResponsePhoto['id']
-    server = firstResponsePhoto['server']
-    farm = firstResponsePhoto['farm']
+    try:
+        firstResponsePhoto = flickrResponseJson['photos']['photo'][0]
+        print(firstResponsePhoto)
+        secret = firstResponsePhoto['secret']
+        id = firstResponsePhoto['id']
+        server = firstResponsePhoto['server']
+        farm = firstResponsePhoto['farm']
 
-    #print(jsonforphoto)  #Just checking we get the JSON we expect
-        #TODO add error handing
+        #print(jsonforphoto)  #Just checking we get the JSON we expect
+            #TODO add error handing
 
-    fetchPhotoURL = 'https://farm%s.staticflickr.com/%s/%s_%s_m.jpg' % (farm, server, id, secret)
-    print(fetchPhotoURL)   #Again, just checking
-    return fetchPhotoURL
+        fetchPhotoURL = 'https://farm%s.staticflickr.com/%s/%s_%s_m.jpg' % (farm, server, id, secret)
+        print(fetchPhotoURL)   #Again, just checking
+        return fetchPhotoURL
+    except KeyError:
+        pass
