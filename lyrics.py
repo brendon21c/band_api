@@ -20,7 +20,7 @@ def get_track_id(trackID):
 def get_lyrics_for_band(band):
     key = keys['MUSIXMATCH KEY']
     musicmatchREQUESTLYRICS =
-    'http://api.musixmatch.com/ws/1.1/track.search?q_track={}&format=json'.format(trackName)
+    'http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id={}&format=json'.format(trackID)
 
     lyrics = 'body.lyrics.lyrics_body'
   return lyrics
