@@ -13,6 +13,7 @@ class Bands(db.Model):
     band_name = db.Column(db.String(50))
     band_saved = db.Column(db.Boolean)
 
+
     def __init__(self,name,saved):
 
         self.band_name = name

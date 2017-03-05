@@ -1,11 +1,6 @@
 from flask import Flask, request, flash, url_for, redirect, render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func, exists, and_
-import itertools
-import json
-import requests
-import sys
-import urllib.request
 from datetime import *
 from data_processing import *
 from keys import *
@@ -33,19 +28,29 @@ def home_page():
 
         band = request.form['artist']
 
-        add_band_to_database(band) # program will save every band searched until deleted by User.  # Get APIs working first
+        song = request.form['song']
 
-        dates, photo, lyrics = get_data_for_band(band)   # Use these in the template
 
-        if not dates or not photo:
+        if not band: # checks for a empty band string.
 
-            not_found = "Sorry, that artist is not playing Minnesota at this time."
+            return render_template('home_page.html', key = google_key, place = "guthrie+theater", state = "MN")
 
-            return render_template('search_results.html', key = google_key, place = "guthrie+theater", state = "MN", artist_not_found = not_found, photos = photo)
 
         else:
 
-            return render_template('search_results.html', key = google_key, place = dates[1], state = "MN", ticket_site = dates[0], photos = photo)
+            add_band_to_database(band) # program will save every band searched until deleted by User.  # Get APIs working first
+
+            dates, photo, lyrics = get_data_for_band(band,song)   # Use these in the template
+
+            if not dates or not photo:
+
+                not_found = "Sorry, that artist is not playing Minnesota at this time."
+
+                return render_template('search_results.html', key = google_key, place = "guthrie+theater", state = "MN", artist_not_found = not_found, photos = photo)
+
+            else:
+
+                return render_template('search_results.html', key = google_key, place = dates[1], state = "MN", ticket_site = dates[0], photos = photo)
 
 
     return render_template('home_page.html', key = google_key, place = "guthrie+theater", state = "MN")
