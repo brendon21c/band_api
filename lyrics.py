@@ -12,6 +12,7 @@ import json
 #Documentation found here: https://developer.musixmatch.com/documentation
 def get_track_id(song):
     key = keys['MUSIXMATCH KEY']
+
     #trackName = get_data_for_band(song)
     musixmatchSEARCH = 'http://api.musixmatch.com/ws/1.1/track.search?q_track={}'.format(song)
     print(musixmatchSEARCH)
@@ -27,7 +28,7 @@ def get_track_id(song):
 
     #need the trackID to send to musixmatch in order to get lyrics
 
-    return trackID
+return trackID
 
 def get_lyrics_for_band(song):
 
