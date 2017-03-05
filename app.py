@@ -39,15 +39,17 @@ def home_page():
 
             dates, photo, lyrics = get_data_for_band(band,song)   # Use these in the template
 
+            song_test = "Here comes the man."
+
             if not dates:
 
                 not_found = "Sorry, that artist is not playing Minnesota at this time."
 
-                return render_template('search_results.html', key = google_key, place = "guthrie+theater", state = "MN", artist_not_found = not_found, photos = photo)
+                return render_template('search_results.html', key = google_key, place = "guthrie+theater", state = "MN", artist_not_found = not_found, photos = photo, song = song_test)
 
             else:
 
-                return render_template('search_results.html', key = google_key, place = dates[1], state = "MN", ticket_site = dates[0], photos = photo)
+                return render_template('search_results.html', key = google_key, place = dates[1], state = "MN", ticket_site = dates[0], photos = photo, song = song_test)
 
 
     return render_template('home_page.html', key = google_key, place = "guthrie+theater", state = "MN")
