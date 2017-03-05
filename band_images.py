@@ -1,5 +1,6 @@
 # todo get images and return
 from keys import keys
+from data_processing import *
 import urllib.request
 import requests
 import json
@@ -12,11 +13,12 @@ def get_photos_for_band(band):
     key = keys['FLICKR KEY']
     bandSpacing = band.replace(' ', '%20')
     flickerSearchURL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key={}&sort=relevance&text={}&format=json&nojsoncallback=1'.format(key, bandSpacing)
-    print (flickerSearchURL)
+    #print (flickerSearchURL)
         #Search flickr for cat pictures
     flickrResponse = requests.get(flickerSearchURL)
         #get json back
     #flickrResponseJSONString = flickrResponse.read().decode('UTF-8')
+
     flickrResponseJson = flickrResponse.json()
     #print(flickrResponseJson)
         #Get first json object ('photos') which contains another json object ('photo') which is an json array; each
@@ -42,6 +44,6 @@ def get_photos_for_band(band):
             url_list.append(fetchPhotoURL)
 
         return url_list
-        
+
     except KeyError:
         pass

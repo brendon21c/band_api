@@ -1,4 +1,5 @@
 from keys import keys
+from data_processing import *
 import requests
 from logging import log
 
@@ -13,23 +14,26 @@ def get_dates_for_artist(artist):
 
     response = requests.get(url)
 
-    tm_json = response.json()
+    TM_process(response)
 
-    # process this somehow
+    # tm_json = response.json()
+    #
+    # # process this somehow
+    #
+    # data = TM_process(tm_json)
 
-    data = TM_process(tm_json)
-
-    return data
 
 
-def TM_process(TM_dict):
 
+def TM_process(url):
+
+    tm_json = url.json()
 
     info_list = []
 
     try:
 
-        artist = TM_dict["_embedded"]['events'][0]
+        artist = tm_json["_embedded"]['events'][0]
         print(artist['url']) # ticket infor url
         venue = artist["_embedded"]['venues'][0] # Gets venue
         print(venue['name'])

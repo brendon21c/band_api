@@ -20,9 +20,11 @@ def get_data_for_band(band,song):
 
         print(song)
         # todo get lyrics. Return data in suitable format for template
-        lyrics = get_lyrics_for_band(song)
+        #lyrics = get_lyrics_for_band(song)
 
-        return lyrics
+        #return lyrics
+
+        return ticketmaster_data, photos, song # testing purposes only! 
 
     elif band and not song:
 
