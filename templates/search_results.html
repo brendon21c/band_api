@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title> Band Researcher </title>
+
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-colors-camo.css"> <!-- Extra color options -->
+
+
+</head>
+
+<body>
+
+  <h2 class="banner w3-panel w3-camo-sandstone"> This web app allows you to track and investigate bands you like. </h2>
+
+  <div>
+
+    <ul class="w3-navbar w3-light-grey w3-border">
+
+      <li><a href = "/">Home</a></li>
+      <li><a href = "{{ url_for('search_history') }}">Search History</a></li>
+      <li><a href = "{{ url_for('search_results') }}">Search Results</a></li>
+
+
+    </ul>
+
+  </div>
+
+  <div class="w3-content" style="width:100%">
+
+    <a href="{{ ticket_site }}"> Ticket Information</a>
+    <h3> {{ artist_not_found }}</h3>
+
+      <div class="w3-row">
+
+        <iframe src="https://www.google.com/maps/embed/v1/place?key={{ key }}&q={{ place }}+MN" style="width:100%"></iframe>
+
+      </div>
+
+      {% if photos %}
+
+        <div class="w3-row">
+
+          <div class="w3-col s4"><img src="{{ photos[0] }}"></div>
+          <div class="w3-col s4"><img src="{{ photos[1] }}"></div>
+          <div class="w3-col s4"><img src="{{ photos[2] }}"></div>
+
+        <p>
+
+        <div class="w3-row">
+
+          <div class="w3-col s4"><img src="{{ photos[3] }}"></div>
+          <div class="w3-col s4"><img src="{{ photos[4] }}"></div>
+
+        </div>
+
+        </div>
+
+      {% endif %}
+
+  </div>
+
+</body>
+</html>

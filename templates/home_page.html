@@ -13,7 +13,7 @@
 <h2 class="banner w3-panel w3-camo-sandstone"> This web app allows you to track and investigate bands you like. </h2>
 
 
-<body class="w3-display-container w3-padding">
+<body>
 
   <div>
 
@@ -21,6 +21,8 @@
 
       <li><a href = "/">Home</a></li>
       <li><a href = "{{ url_for('search_history') }}">Search History</a></li>
+      <li><a href = "{{ url_for('search_results') }}">Search Results</a></li>
+
 
     </ul>
 
@@ -37,22 +39,6 @@
 
     </form>
   </div>
-
-  <a href="{{ ticket_site }}"> Ticket Information</a>
-
-
-
-  <h3> {{ artist_not_found }}</h3>
-
-  <div class="Google Maps window w3-display-bottom-right w3-padding">
-
-  <iframe src="https://www.google.com/maps/embed/v1/place?key={{ key }}&q={{ place }}+MN" allowfullscreen width="700" height="500"></iframe>
-
-  </div>
-
-  <!-- Photos  Check syntax plz -->
-
-  <img src="{{ photo_url }}">
 
 
 </body>

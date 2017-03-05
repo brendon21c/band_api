@@ -41,11 +41,11 @@ def home_page():
 
             not_found = "Sorry, that artist is not playing Minnesota at this time."
 
-            return render_template('home_page.html', key = google_key, place = "guthrie+theater", state = "MN", artist_not_found = not_found)
+            return render_template('search_results.html', key = google_key, place = "guthrie+theater", state = "MN", artist_not_found = not_found, photos = photo)
 
         else:
 
-            return render_template('home_page.html', key = google_key, place = dates[1], state = "MN", ticket_site = dates[0], photo_url = photo)
+            return render_template('search_results.html', key = google_key, place = dates[1], state = "MN", ticket_site = dates[0], photos = photo)
 
 
     return render_template('home_page.html', key = google_key, place = "guthrie+theater", state = "MN")
@@ -83,6 +83,13 @@ def search_history():
 
     return render_template('search_history.html', band_list = Bands.query.all())
 
+@app.route('/search_results')
+def search_results():
+
+
+    return render_template('search_results.html', key = google_key, place = "guthrie+theater", state = "MN")
+
+
 
 def add_band_to_database(band):
 
@@ -95,7 +102,7 @@ def delete_artist_from_db(band):
 
     query = Bands.query.filter_by(band_name = band).delete()
 
-
+    db.session.commit()
 
 if __name__ == '__main__':
     db.create_all()

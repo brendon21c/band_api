@@ -18,21 +18,30 @@ def get_photos_for_band(band):
         #get json back
     #flickrResponseJSONString = flickrResponse.read().decode('UTF-8')
     flickrResponseJson = flickrResponse.json()
+    #print(flickrResponseJson)
         #Get first json object ('photos') which contains another json object ('photo') which is an json array; each
         # element represents one photo. Take element 0
-    try:
-        firstResponsePhoto = flickrResponseJson['photos']['photo'][0]
-        print(firstResponsePhoto)
-        secret = firstResponsePhoto['secret']
-        id = firstResponsePhoto['id']
-        server = firstResponsePhoto['server']
-        farm = firstResponsePhoto['farm']
 
-        #print(jsonforphoto)  #Just checking we get the JSON we expect
+    url_list = []
+
+    try:
+        for i in range(0, 5):
+
+            firstResponsePhoto = flickrResponseJson['photos']['photo'][i]
+            #print(firstResponsePhoto)
+            secret = firstResponsePhoto['secret']
+            id = firstResponsePhoto['id']
+            server = firstResponsePhoto['server']
+            farm = firstResponsePhoto['farm']
+
+            #print(jsonforphoto)  #Just checking we get the JSON we expect
             #TODO add error handing
 
-        fetchPhotoURL = 'https://farm%s.staticflickr.com/%s/%s_%s_m.jpg' % (farm, server, id, secret)
-        print(fetchPhotoURL)   #Again, just checking
-        return fetchPhotoURL
+            fetchPhotoURL = 'https://farm%s.staticflickr.com/%s/%s_%s_m.jpg' % (farm, server, id, secret)
+            #print(fetchPhotoURL)   #Again, just checking
+            url_list.append(fetchPhotoURL)
+
+        return url_list
+        
     except KeyError:
         pass
