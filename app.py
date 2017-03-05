@@ -20,9 +20,6 @@ google_key = keys['GOOGLE_KEY']
 @app.route('/', methods = ['GET', 'POST'])
 def home_page():
 
-    #photo_url = addPhotoToWebApp() # Getting a SSL cert fail on this.
-
-    #get_band_tour_info(TM_key, 'norah jones')
 
     if request.method == 'POST':
 
@@ -42,7 +39,7 @@ def home_page():
 
             dates, photo, lyrics = get_data_for_band(band,song)   # Use these in the template
 
-            if not dates or not photo:
+            if not dates:
 
                 not_found = "Sorry, that artist is not playing Minnesota at this time."
 
@@ -65,26 +62,35 @@ def search_history():
 
         band = request.form['save_band']
 
-        checked_save = request.form.getlist('save_artist')
+        checked_query = request.form.getlist('query_artist')
         checked_delete = request.form.getlist('delete_artist')
-
-        print(len(checked_save))
 
         if len(checked_delete) == 1:
 
             delete_artist_from_db(band)
 
-        elif len(checked_save) == 1:
+        elif len(checked_query) == 1: # Not the best work around, but saving photos to
+                                      # a SQL database is really hard.
 
-            print(checked_save[0])
+            song = '' # needed only becasue the method takes two variables
+
+            dates, photo, lyrics = get_data_for_band(band,song)   # Use these in the template
+
+            if not dates:
+
+                not_found = "Sorry, that artist is not playing Minnesota at this time."
+
+                return render_template('search_results.html', key = google_key, place = "guthrie+theater", state = "MN", artist_not_found = not_found, photos = photo)
+
+            else:
+
+                return render_template('search_results.html', key = google_key, place = dates[1], state = "MN", ticket_site = dates[0], photos = photo)
+
 
         else:
 
             print("invalid input on checked boxes.") # This should flash to user.
 
-        # if len(checked2) == 1:
-        #
-        #     delete_artist_from_db(band)
 
     return render_template('search_history.html', band_list = Bands.query.all())
 

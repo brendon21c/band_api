@@ -11,6 +11,8 @@ import logging as log
 ''' This is meant to process url concurrency, possibly more to come.'''
 
 ''' The section on concurency I got from the documentation, I still don;t full understand it.'''
+
+''' With the apis handling the url proccessing I am not sure how to handle concurency.'''
 # Retrieve a single page and report the URL and contents
 def load_url(url, timeout):
     with urllib.request.urlopen(url, timeout=timeout) as conn:
