@@ -22,7 +22,8 @@ def get_lyrics_for_band(band):
     musicmatchREQUESTLYRICS =
     'http://api.musixmatch.com/ws/1.1/track.search?q_track={}&format=json'.format(trackName)
 
-  return musicmatchREQUEST
+    lyrics = 'body.lyrics.lyrics_body'
+  return lyrics
 
 
 
