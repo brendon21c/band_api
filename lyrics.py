@@ -10,6 +10,8 @@ import json
 #2. you send the track id to MM to return lyrics
 #3. MM will return the lyrics to the song of the track_id
 #Documentation found here: https://developer.musixmatch.com/documentation
+#GET LYRICS DOCS: https://developer.musixmatch.com/documentation/api-reference/track-lyrics-get
+#GET TRACK ID DOCS: https://developer.musixmatch.com/documentation/api-reference/track-search
 def get_track_id(trackID):
     key = keys['MUSIXMATCH KEY']
     trackName = get_data_for_band(song)
@@ -21,7 +23,7 @@ def get_track_id(trackID):
     trackID = musixmatchSEARCH.'body.track_list.track.track_id'
     #need the trackID to send to musixmatch in order to get lyrics
 
-return trackID
+    return trackID
 
 def get_lyrics_for_band(band):
     key = keys['MUSIXMATCH KEY']
@@ -32,4 +34,4 @@ def get_lyrics_for_band(band):
 
     lyrics = musicmatchREQUESTLYRICS.'body.lyrics.lyrics_body'
 
-  return lyrics
+    return lyrics
