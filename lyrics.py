@@ -1,4 +1,5 @@
 from keys import keys
+from get_data import *
 import musixmatch.api
 import musixmatch
 import urllib.request
@@ -11,21 +12,23 @@ import json
 #Documentation found here: https://developer.musixmatch.com/documentation
 def get_track_id(trackID):
     key = keys['MUSIXMATCH KEY']
+    trackName =
     musixmatchSEARCH = 'http://api.musixmatch.com/ws/1.1/track.search?q_track={}&format=json'.format(trackName)
+    #trackName should be a song title
     #this will return a JSON
-    trackID = 'body.track_list.track.track_id'
+
+    trackID = musixmatchSEARCH.'body.track_list.track.track_id'
+    #need the trackID to send to musixmatch in order to get lyrics
 
     return trackID
 
 def get_lyrics_for_band(band):
     key = keys['MUSIXMATCH KEY']
+    trackID = get_track_id()
+
     musicmatchREQUESTLYRICS =
     'http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id={}&format=json'.format(trackID)
 
-    lyrics = 'body.lyrics.lyrics_body'
+    lyrics = musicmatchREQUESTLYRICS.'body.lyrics.lyrics_body'
+
   return lyrics
-
-
-
-except KeyError:
-    pass
