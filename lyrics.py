@@ -1,8 +1,7 @@
 from keys import keys
 from get_data import *
 # import musixmatch.api
-# import musixmatch
-import urllib.request
+#import musixmatch
 import requests
 import json
 
@@ -11,24 +10,37 @@ import json
 #3. MM will return the lyrics to the song of the track_id
 #Documentation found here: https://developer.musixmatch.com/documentation
 def get_track_id(song):
+
     key = keys['MUSIXMATCH KEY']
 
-    #trackName = get_data_for_band(song)
-    musixmatchSEARCH = 'http://api.musixmatch.com/ws/1.1/track.search?q_track={}'.format(song)
-    print(musixmatchSEARCH)
+    if ' ' in song:
+
+        song  = song.replace(' ', '%20')
+
+    print(song)
+
+
+    test_search = 'https://api.musixmatch.com/ws/1.1/track.search?callback=callback&q_track={}&quorum_factor=1&apikey={}'.format(song,key)
+
     #trackName should be a song title
     #this will return a JSON
-    request = requests.get(musixmatchSEARCH)
+    request = requests.get(test_search)
     search_json = request.json()
-    print(search_json)
 
-    #trackID = musixmatchSEARCH.'body.track_list.track.track_id'
-    trackID = search_json['body']['track_list'][0]
-    print(trackID)
+    try:
 
-    #need the trackID to send to musixmatch in order to get lyrics
+        trackID = search_json['message']['body']['track_list'][0]['track']['track_id']
+        print(trackID)
 
-return trackID
+        return trackID
+
+
+    except Exception as e:
+
+        return "no id found"
+
+
+
 
 def get_lyrics_for_band(song):
 
@@ -36,8 +48,23 @@ def get_lyrics_for_band(song):
 
     trackID = get_track_id(song)
 
-    musicmatchREQUESTLYRICS = 'http://api.musixmatch.com/ws/1.1/track.lyrics.get?track_id={}&format=json'.format(trackID)
+    test_search = 'https://api.musixmatch.com/ws/1.1/track.lyrics.get?callback=callback&track_id={}&apikey={}'.format(trackID, key)
 
-    #lyrics = musicmatchREQUESTLYRICS.'body.lyrics.lyrics_body'
+    #trackName should be a song title
+    #this will return a JSON
+    request = requests.get(test_search)
 
-    return lyrics
+    search_json = request.json()
+    
+
+    try:
+
+        lyrics = search_json['message']['body']['lyrics']['lyrics_body']
+        print(lyrics)
+
+        return lyrics
+
+
+    except Exception as e:
+
+        result = "no lyrics found"

@@ -4,7 +4,7 @@ from band_images import *
 from lyrics import *
 
 
-def get_data_for_band(band,song):
+def get_data_for_band(band):
 
     # At the moment, make three requests, one after the other
     # Future: make all three request concurrently
@@ -12,28 +12,16 @@ def get_data_for_band(band,song):
 
     # todo get data from ticketmaster. Return data in suitable format for template
     ticketmaster_data = get_dates_for_artist(band)
+    print(ticketmaster_data)
 
     # todo get data from image source Return data in suitable format for template
     photos = get_photos_for_band(band)
 
-    # This is where the program will call the lyric API.
-    if song:
+    return ticketmaster_data, photos
 
-        # todo get lyrics. Return data in suitable format for template
-        lyrics = get_lyrics_for_band(song)
-        print(lyrics)
+def get_lyrics_for_song(song):
 
-        return lyrics # Return lyrics to web app.
+    lyrics = get_lyrics_for_band(song)
+    print(lyrics)
 
-
-    elif band and not song:
-
-        lyrics = ''
-
-        return ticketmaster_data, photos, lyrics
-
-    else:
-
-        lyrics = get_lyrics_for_band(song)
-
-        return ticketmaster_data, photos, lyrics
+    return lyrics # Return lyrics to web app.

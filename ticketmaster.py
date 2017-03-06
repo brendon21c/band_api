@@ -14,20 +14,7 @@ def get_dates_for_artist(artist):
 
     response = requests.get(url)
 
-    TM_process(response)
-
-    # tm_json = response.json()
-    #
-    # # process this somehow
-    #
-    # data = TM_process(tm_json)
-
-
-
-
-def TM_process(url):
-
-    tm_json = url.json()
+    tm_json = response.json()
 
     info_list = []
 
@@ -40,17 +27,12 @@ def TM_process(url):
         info_list.append(artist['url'])
         info_list.append(venue['name'])
 
+        print(info_list)
+
         return info_list
 
 
     except Exception as e:
 
-        #log.error("problem", e) # throwing an error
-
-        # no_artist_found = "Sorry, that artist is not playing Minnesoata at this time."
-
-        ## return an empty list if no results found
-
-        #info_list.append(no_artist_found)
-
+        
         return info_list

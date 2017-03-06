@@ -4,7 +4,7 @@ from sqlalchemy import func, exists, and_
 from datetime import *
 from data_processing import *
 from keys import *
-from get_data import get_data_for_band
+from get_data import *
 
 
 app = Flask(__name__)
@@ -30,6 +30,12 @@ def home_page():
 
         if not band: # checks for a empty band string.
 
+            if song and not band:
+
+                lyrics = get_lyrics_for_song(song)
+
+                return render_template('search_results.html', key = google_key, place = "guthrie+theater", state = "MN", song = lyrics)
+
             return render_template('home_page.html', key = google_key, place = "guthrie+theater", state = "MN")
 
 
@@ -37,18 +43,18 @@ def home_page():
 
             add_band_to_database(band) # program will save every band searched until deleted by User.  # Get APIs working first
 
-            dates, photo, lyrics = get_data_for_band(band,song)   # Use these in the template
-
+            dates, photo = get_data_for_band(band)   # Use these in the template
+            
 
             if not dates:
 
                 not_found = "Sorry, that artist is not playing Minnesota at this time."
 
-                return render_template('search_results.html', key = google_key, place = "guthrie+theater", state = "MN", artist_not_found = not_found, photos = photo, song = lyrics)
+                return render_template('search_results.html', key = google_key, place = "guthrie+theater", state = "MN", artist_not_found = not_found, photos = photo)
 
             else:
 
-                return render_template('search_results.html', key = google_key, place = dates[1], state = "MN", ticket_site = dates[0], photos = photo, song = lyrics)
+                return render_template('search_results.html', key = google_key, place = dates[1], state = "MN", ticket_site = dates[0], photos = photo)
 
 
     return render_template('home_page.html', key = google_key, place = "guthrie+theater", state = "MN")
@@ -75,7 +81,7 @@ def search_history():
 
             song = '' # needed only becasue the method takes two variables
 
-            dates, photo, lyrics = get_data_for_band(band,song)   # Use these in the template
+            dates, photo = get_data_for_band(band)   # Use these in the template
 
             if not dates:
 
