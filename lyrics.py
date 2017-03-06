@@ -14,7 +14,6 @@ def get_track_id(song):
 
     key = keys['MUSIXMATCH KEY']
 
-<<<<<<< HEAD
     if ' ' in song:
 
         song  = song.replace(' ', '%20')
