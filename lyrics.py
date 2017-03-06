@@ -9,10 +9,12 @@ import json
 #2. you send the track id to MM to return lyrics
 #3. MM will return the lyrics to the song of the track_id
 #Documentation found here: https://developer.musixmatch.com/documentation
+
 def get_track_id(song):
 
     key = keys['MUSIXMATCH KEY']
 
+<<<<<<< HEAD
     if ' ' in song:
 
         song  = song.replace(' ', '%20')
@@ -40,8 +42,6 @@ def get_track_id(song):
         return "no id found"
 
 
-
-
 def get_lyrics_for_band(song):
 
     key = keys['MUSIXMATCH KEY']
@@ -55,7 +55,7 @@ def get_lyrics_for_band(song):
     request = requests.get(test_search)
 
     search_json = request.json()
-    
+
 
     try:
 
